@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yishenxiao.commons.dao.MolHistoricalRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.yishenxiao.commons.beans.MolHistoricalRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="userArticleId" property="userarticleid" jdbcType="BIGINT" />
+    <result column="molCount" property="molcount" jdbcType="VARCHAR" />
+    <result column="showContext" property="showcontext" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, createTime, updateTime, userId, userArticleId, molCount, showContext, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_mol_historical_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_mol_historical_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yishenxiao.commons.beans.MolHistoricalRecord" >
+    insert into sys_mol_historical_record (id, createTime, updateTime, 
+      userId, userArticleId, molCount, 
+      showContext, type)
+    values (#{id,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=BIGINT}, #{userarticleid,jdbcType=BIGINT}, #{molcount,jdbcType=VARCHAR}, 
+      #{showcontext,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yishenxiao.commons.beans.MolHistoricalRecord" >
+    insert into sys_mol_historical_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="userarticleid != null" >
+        userArticleId,
+      </if>
+      <if test="molcount != null" >
+        molCount,
+      </if>
+      <if test="showcontext != null" >
+        showContext,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="userarticleid != null" >
+        #{userarticleid,jdbcType=BIGINT},
+      </if>
+      <if test="molcount != null" >
+        #{molcount,jdbcType=VARCHAR},
+      </if>
+      <if test="showcontext != null" >
+        #{showcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yishenxiao.commons.beans.MolHistoricalRecord" >
+    update sys_mol_historical_record
+    <set >
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="userarticleid != null" >
+        userArticleId = #{userarticleid,jdbcType=BIGINT},
+      </if>
+      <if test="molcount != null" >
+        molCount = #{molcount,jdbcType=VARCHAR},
+      </if>
+      <if test="showcontext != null" >
+        showContext = #{showcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yishenxiao.commons.beans.MolHistoricalRecord" >
+    update sys_mol_historical_record
+    set createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=BIGINT},
+      userArticleId = #{userarticleid,jdbcType=BIGINT},
+      molCount = #{molcount,jdbcType=VARCHAR},
+      showContext = #{showcontext,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="queryByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_mol_historical_record
+    where userId = #{userId,jdbcType=BIGINT}
+  </select>
+</mapper>

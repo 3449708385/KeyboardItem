@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yishenxiao.commons.dao.DigitalCurrencyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yishenxiao.commons.beans.DigitalCurrencyInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="digitalCurrencyName" property="digitalcurrencyname" jdbcType="VARCHAR" />
+    <result column="digitalCurrencyAddr" property="digitalcurrencyaddr" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="BIGINT" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="tokenDecimal" property="tokendecimal" jdbcType="INTEGER" />
+    <result column="realBalanceLimit" property="realbalancelimit" jdbcType="DECIMAL" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, digitalCurrencyName, digitalCurrencyAddr, parentId, fee, tokenDecimal, realBalanceLimit, 
+    createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_digital_currency_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_digital_currency_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yishenxiao.commons.beans.DigitalCurrencyInfo" >
+    insert into sys_digital_currency_info (id, digitalCurrencyName, digitalCurrencyAddr, 
+      parentId, fee, tokenDecimal, 
+      realBalanceLimit, createTime, updateTime
+      )
+    values (#{id,jdbcType=BIGINT}, #{digitalcurrencyname,jdbcType=VARCHAR}, #{digitalcurrencyaddr,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=BIGINT}, #{fee,jdbcType=DECIMAL}, #{tokendecimal,jdbcType=INTEGER}, 
+      #{realbalancelimit,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yishenxiao.commons.beans.DigitalCurrencyInfo" >
+    insert into sys_digital_currency_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="digitalcurrencyname != null" >
+        digitalCurrencyName,
+      </if>
+      <if test="digitalcurrencyaddr != null" >
+        digitalCurrencyAddr,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="tokendecimal != null" >
+        tokenDecimal,
+      </if>
+      <if test="realbalancelimit != null" >
+        realBalanceLimit,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="digitalcurrencyname != null" >
+        #{digitalcurrencyname,jdbcType=VARCHAR},
+      </if>
+      <if test="digitalcurrencyaddr != null" >
+        #{digitalcurrencyaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="tokendecimal != null" >
+        #{tokendecimal,jdbcType=INTEGER},
+      </if>
+      <if test="realbalancelimit != null" >
+        #{realbalancelimit,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yishenxiao.commons.beans.DigitalCurrencyInfo" >
+    update sys_digital_currency_info
+    <set >
+      <if test="digitalcurrencyname != null" >
+        digitalCurrencyName = #{digitalcurrencyname,jdbcType=VARCHAR},
+      </if>
+      <if test="digitalcurrencyaddr != null" >
+        digitalCurrencyAddr = #{digitalcurrencyaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="tokendecimal != null" >
+        tokenDecimal = #{tokendecimal,jdbcType=INTEGER},
+      </if>
+      <if test="realbalancelimit != null" >
+        realBalanceLimit = #{realbalancelimit,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yishenxiao.commons.beans.DigitalCurrencyInfo" >
+    update sys_digital_currency_info
+    set digitalCurrencyName = #{digitalcurrencyname,jdbcType=VARCHAR},
+      digitalCurrencyAddr = #{digitalcurrencyaddr,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=BIGINT},
+      fee = #{fee,jdbcType=DECIMAL},
+      tokenDecimal = #{tokendecimal,jdbcType=INTEGER},
+      realBalanceLimit = #{realbalancelimit,jdbcType=DECIMAL},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

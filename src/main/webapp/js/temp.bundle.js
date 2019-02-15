@@ -1,0 +1,1 @@
+webpackJsonp([2],{"./src/pages/temp/index.js":function(s,e,c){"use strict";c("./src/pages/temp/index.scss")},"./src/pages/temp/index.scss":function(s,e){}},["./src/pages/temp/index.js"]);

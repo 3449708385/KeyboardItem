@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd        
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+	
+	<bean id="trigger" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTriggerBean_1"/><!-- 每天解锁用户发送手机限制 -->
+				<ref bean="cronTriggerBean_2"/><!-- 用户午夜重置登陆状态 -->
+				<ref bean="cronTriggerBean_3"/><!-- 用户午夜重置today mol count -->
+			</list>
+		</property>
+	</bean>  
+	<bean id="cronTriggerBean_1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail_1"></property>
+		<property name="cronExpression" value="0 0 0 * * ?"></property> 
+	</bean>
+	<bean id="jobDetail_1" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.yishenxiao.commons.service.impl.quzrtz.UnLockPhoneSMSServiceImpl"></property>
+		<property name="durability" value="true" />
+	</bean>
+	
+	<bean id="cronTriggerBean_2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail_2"></property>
+		<property name="cronExpression" value="0 0 0 * * ?"></property>  
+	</bean>
+	<bean id="jobDetail_2" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.yishenxiao.commons.service.impl.quzrtz.ResetLoginServiceImpl"></property>
+		<property name="durability" value="true" />
+	</bean>
+	
+	<bean id="cronTriggerBean_3" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail_3"></property>
+		<property name="cronExpression" value="0 0 0 * * ?"></property>  
+	</bean>
+	<bean id="jobDetail_3" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.yishenxiao.commons.service.impl.quzrtz.ResetTodayMolServiceImpl"></property>
+		<property name="durability" value="true" />
+	</bean>
+
+</beans>

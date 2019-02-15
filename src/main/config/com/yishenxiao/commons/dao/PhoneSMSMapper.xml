@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yishenxiao.commons.dao.PhoneSMSMapper" >
+  <resultMap id="BaseResultMap" type="com.yishenxiao.commons.beans.PhoneSMS" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yishenxiao.commons.beans.PhoneSMS" extends="BaseResultMap" >
+    <result column="ipAddr" property="ipaddr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone, count
+  </sql>
+  <sql id="Blob_Column_List" >
+    ipAddr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_phone_sms
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_phone_sms
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yishenxiao.commons.beans.PhoneSMS" >
+    insert into sys_phone_sms (id, phone, count, 
+      ipAddr)
+    values (#{id,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{ipaddr,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yishenxiao.commons.beans.PhoneSMS" >
+    insert into sys_phone_sms
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="ipaddr != null" >
+        ipAddr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="ipaddr != null" >
+        #{ipaddr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yishenxiao.commons.beans.PhoneSMS" >
+    update sys_phone_sms
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="ipaddr != null" >
+        ipAddr = #{ipaddr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yishenxiao.commons.beans.PhoneSMS" >
+    update sys_phone_sms
+    set phone = #{phone,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      ipAddr = #{ipaddr,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yishenxiao.commons.beans.PhoneSMS" >
+    update sys_phone_sms
+    set phone = #{phone,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+   <select id="queryByPhone" parameterType="Map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_phone_sms
+    where phone = #{phone,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByCountAndData" parameterType="com.yishenxiao.commons.beans.PhoneSMS">
+    update sys_phone_sms
+    set phone = #{phone,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER}+1,
+      ipAddr = #{ipaddr,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="queryByAllDataCount" resultType="java.lang.Integer">
+    select count(*) from sys_phone_sms
+  </select>
+  <select id="queryPartData" parameterType="Map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_phone_sms
+    where id = #{startId,jdbcType=BIGINT} limit #{eventCounts,jdbcType=BIGINT}
+  </select>
+  <update id="unLockPhoneSMS" parameterType="Map">
+    update sys_phone_sms
+    set phone = #{phone,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
